@@ -30,6 +30,15 @@ function displayBook(book) {
     isReadContainer.textContent = "Read? ";
     let isReadButton = document.createElement("button");
     isReadButton.classList.add("isReadButton");
+    isReadButton.addEventListener("click", e=>{
+        isReadButton.textContent = isReadButton.textContent==="" ? "\u2713" : "";
+        let parentBook = isReadButton.closest(".book");
+        for (let i = 0; i < myLibrary.length; i++) {
+            if (myLibrary[i].id===parentBook.id) {
+                myLibrary[i].read = myLibrary[i].read ? false : true;
+            }
+        }
+    });
     let removeBook = document.createElement("button");
     removeBook.textContent = "Remove";
     removeBook.addEventListener("click", ()=>{
@@ -44,6 +53,7 @@ function displayBook(book) {
         parentBook.remove();
     });
 
+    isReadButton.textContent = book.read ? "\u2713" : "";
     bookDiv.className = "book";
     title.textContent = book.title;
     author.textContent = book.author;
@@ -79,15 +89,16 @@ form.addEventListener("submit", e=>{
     const title = formData.get("title");
     const author = formData.get("author");
     const pages = formData.get("numPages");
-    let book = new Book(title, author, pages);
+    const isRead = formData.get("isRead") || false;
+    let book = new Book(title, author, pages, isRead);
     addBookToLibrary(book);
     displayBook(book);
     form.reset();
 });
 
-let book1 = new Book("LOTR", "JRRT", 1064);
-let book2 = new Book("The Hobbit", "JRRT", 342);
-let book3 = new Book("Alias Grace", "Atwood", 500);
+let book1 = new Book("LOTR", "JRRT", 1064, true);
+let book2 = new Book("The Hobbit", "JRRT", 342, true);
+let book3 = new Book("Alias Grace", "Atwood", 500, true);
 addBookToLibrary(book1);
 addBookToLibrary(book2);
 addBookToLibrary(book3);
