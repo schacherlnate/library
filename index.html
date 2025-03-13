@@ -9,13 +9,26 @@
 </head>
 <body>
     <h1>My Library</h1>
-    <div class="display"></div>
+    <div class="display">
+        <div class="book">
+            <h3 class="title"></h3>
+            <p class="author"></p>
+            <p class="numPages"></p>
+            <div class="buttonContainer">
+                <div>
+                    Read? 
+                    <button class="isReadButton"></button>
+                </div>
+                <button>Remove</button>
+            </div>
+        </div>
+    </div>
     <button id="addBook">Add a book</button>
     <form>
         <label>Title: <input type="text" name="title" required></label>
         <label>Author: <input type="text" name="author" required></label>
         <label>Pages: <input type="number" name="numPages" required></label>
-        <label for=""><input type="checkbox" name="isRead" value="true"></label>
+        <label for=""><input type="checkbox" name="isRead"></label>
         <input type="submit" id="submit" required>
     </form>
 </body>
