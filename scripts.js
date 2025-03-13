@@ -6,14 +6,13 @@ function Book(title, author, pages, read) {
     this.pages = pages;
     this.read = read;
     this.id = crypto.randomUUID();
+    this.toggleRead = function() {
+        this.read = !this.read;
+    }
 }
 
 function addBookToLibrary(book) {
     myLibrary.push(book);
-}
-
-function displayBook(book) {
-
 }
 
 function displayBook(book) {
@@ -33,22 +32,14 @@ function displayBook(book) {
     isReadButton.addEventListener("click", e=>{
         isReadButton.textContent = isReadButton.textContent==="" ? "\u2713" : "";
         let parentBook = isReadButton.closest(".book");
-        for (let i = 0; i < myLibrary.length; i++) {
-            if (myLibrary[i].id===parentBook.id) {
-                myLibrary[i].read = myLibrary[i].read ? false : true;
-            }
-        }
+        let idx = getBookIndex(parentBook);
+        myLibrary[idx].toggleRead();
     });
     let removeBook = document.createElement("button");
     removeBook.textContent = "Remove";
     removeBook.addEventListener("click", ()=>{
         let parentBook = removeBook.closest(".book");
-        let idx = 0;
-        for (let i = 0; i < myLibrary.length; i++) {
-            if (myLibrary[i].id===parentBook.id) {
-                idx = i;
-            }
-        }
+        let idx = getBookIndex(parentBook);
         myLibrary.splice(idx, 1);
         parentBook.remove();
     });
@@ -88,13 +79,21 @@ form.addEventListener("submit", e=>{
     const formData = new FormData(form);
     const title = formData.get("title");
     const author = formData.get("author");
-    const pages = formData.get("numPages");
-    const isRead = formData.get("isRead") || false;
+    const pages = Number(formData.get("numPages"));
+    const isRead = formData.get("isRead") ? true : false;
     let book = new Book(title, author, pages, isRead);
     addBookToLibrary(book);
     displayBook(book);
     form.reset();
 });
+
+function getBookIndex(book) {
+    let idx = 0;
+    for (let i = 0; i < myLibrary.length; i++) {
+        if (myLibrary[i].id===book.id) idx=i;
+    }
+    return idx
+}
 
 let book1 = new Book("LOTR", "JRRT", 1064, true);
 let book2 = new Book("The Hobbit", "JRRT", 342, true);
