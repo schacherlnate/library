@@ -1,8 +1,53 @@
+*, *::after, **::before {
+    box-sizing: border-box;
+}
+
+h3, p {
+    margin: 0;
+    padding: 0;
+}
+
 html {
     box-sizing: border-box;
 }
 
 .display {
     border: 2px solid black;
+    width: 1000px;
+    padding: 20px;
     display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.book {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    height: 320px;
+    color: white;
+    font-size: 1.4em;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.buttonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.isReadButton {
+    background-color: white;
+    height: 1.4em;
+}
+
+.book p:last-of-type {
+    margin-bottom: 0;
+    margin-top: auto;
+}
+
+form {
+    visibility: visible;
 }
