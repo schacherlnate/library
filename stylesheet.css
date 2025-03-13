@@ -1,0 +1,8 @@
+html {
+    box-sizing: border-box;
+}
+
+.display {
+    border: 2px solid black;
+    display: grid;
+}
