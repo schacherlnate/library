@@ -15,6 +15,7 @@ function displayBooks(library) {
     const display = document.querySelector(".display");
     library.forEach(book => {
         let bookDiv = document.createElement("div");
+        bookDiv.id = book.id;
         let title = document.createElement("h3");
         let author = document.createElement("p");
         let pages = document.createElement("p");
@@ -26,6 +27,17 @@ function displayBooks(library) {
         isReadButton.classList.add("isReadButton");
         let removeBook = document.createElement("button");
         removeBook.textContent = "Remove";
+        removeBook.addEventListener("click", ()=>{
+            let parentBook = removeBook.closest(".book");
+            let idx = 0;
+            for (let i = 0; i < myLibrary.length; i++) {
+                if (myLibrary[i].id===parentBook.id) {
+                    idx = i;
+                }
+            }
+            myLibrary.splice(idx, 1);
+            parentBook.remove();
+        });
 
         bookDiv.className = "book";
         title.textContent = book.title;
